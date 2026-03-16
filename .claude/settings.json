@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/pip install:*)",
+      "Bash(.venv/bin/python intake.py)",
+      "Bash(.venv/bin/python /Users/owner/Downloads/startup_ideas/drone/intake.py)",
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)"
+    ]
+  }
+}
