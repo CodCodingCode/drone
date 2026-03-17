@@ -16,31 +16,29 @@
     "note": "Drone creates its own WiFi hotspot, no internet when connected"
   },
   "protocol": {
-    "command_port": 8800,
-    "video_port": 1234,
-    "video_start_cmd": "0xef 0x00 0x04 0x00",
+    "tcp_7060": "Video stream (com.lwcx protocol)",
+    "tcp_8060": "Commands",
+    "tcp_9060": "Flight commands",
+    "udp_cmd_port": 40000,
+    "video_port_tcp": 7060,
+    "heartbeat": "0x63 0x63 0x01 0x00 0x00 0x00 0x00 (UDP, every 1s)",
     "packet_format": {
-      "length": 20,
-      "header": "0x66",
-      "terminator": "0x99",
+      "length": 15,
       "structure": [
-        {"byte": 0, "name": "header", "value": "0x66"},
-        {"byte": 1, "name": "reserved", "value": "0x80"},
-        {"byte": 2, "name": "roll", "range": "0-255", "center": 128},
-        {"byte": 3, "name": "pitch", "range": "0-255", "center": 128},
-        {"byte": 4, "name": "throttle", "range": "0-255", "zero": 0},
-        {"byte": 5, "name": "yaw", "range": "0-255", "center": 128},
-        {"byte": 6, "name": "command", "values": {
+        {"bytes": "0-6", "name": "header", "value": "0x63 0x63 0x0a 0x00 0x00 0x08 0x00"},
+        {"byte": 7, "name": "cmd_start", "value": "0x66"},
+        {"byte": 8, "name": "roll", "range": "0-255", "center": 128},
+        {"byte": 9, "name": "pitch", "range": "0-255", "center": 128},
+        {"byte": 10, "name": "throttle", "range": "0-255", "zero": 0},
+        {"byte": 11, "name": "yaw", "range": "0-255", "center": 128},
+        {"byte": 12, "name": "command", "values": {
           "0": "idle",
           "1": "takeoff",
-          "2": "stop",
-          "3": "land",
-          "4": "gyro_calibrate"
+          "2": "land",
+          "4": "stop"
         }},
-        {"byte": 7, "name": "headless_mode", "values": {"2": "off", "3": "on"}},
-        {"bytes": "8-17", "name": "reserved"},
-        {"byte": 18, "name": "checksum", "method": "XOR of bytes 2-7"},
-        {"byte": 19, "name": "terminator", "value": "0x99"}
+        {"byte": 13, "name": "checksum", "method": "XOR of bytes 8-12"},
+        {"byte": 14, "name": "cmd_end", "value": "0x99"}
       ]
     },
     "video_stream": {
@@ -48,19 +46,20 @@
       "max_packet_size": 1080,
       "resolution": "720P"
     },
-    "send_rate_hz": 50,
-    "note": "Protocol based on similar cheap WiFi drones — needs verification via packet capture with TYH Fly app"
+    "send_rate_hz": 20,
+    "camera_library": "pylwdrone (pip install pylwdrone) — handles Lewei camera module protocol",
+    "note": "TCP 7060 and 8060 confirmed open. Drone uses Lewei (LW) camera module, same as all com.lwcx apps."
   },
   "status": {
-    "wifi_connection": "confirmed — Mac connects to drone WiFi, loses internet",
-    "packet_capture": "no drone command packets seen yet — need TYH Fly app running to generate traffic",
-    "protocol_verified": false,
+    "wifi_connection": "confirmed — Mac connects to drone WiFi at 192.168.0.1",
+    "tcp_7060": "confirmed OPEN (video stream)",
+    "tcp_8060": "confirmed OPEN (commands)",
+    "video_stream": "WORKING — 1280x720 MJPEG via pylwdrone",
+    "flight_control": "untested — need to verify command protocol",
     "next_steps": [
-      "Connect phone to drone WiFi and open TYH Fly app",
-      "Run capture_drone.py to sniff actual drone packets",
-      "Verify protocol matches expected 0x66...0x99 format",
-      "Adjust drone_controller.py constants if needed",
-      "Build data pipeline: commands + video frames for VLA training"
+      "Build VLA data pipeline: paired video frames + control commands",
+      "Test flight commands via drone_controller.py",
+      "Integrate camera + controller into single training data collector"
     ]
   }
 }

@@ -5,7 +5,32 @@
       "Bash(.venv/bin/python intake.py)",
       "Bash(.venv/bin/python /Users/owner/Downloads/startup_ideas/drone/intake.py)",
       "WebSearch",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:pypi.org)",
+      "Bash(.venv/bin/python -c \"import pylwdrone; help\\(pylwdrone.LWDrone.take_picture\\)\")",
+      "Bash(.venv/bin/python -c \":*)",
+      "WebFetch(domain:github.com)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:hackaday.io)",
+      "Bash(grep -E \"\\\\.\\(txt|toml|cfg|ini|lock\\)$\")",
+      "WebFetch(domain:rfdetr.roboflow.com)",
+      "Bash(pip list:*)",
+      "Bash(python3 -c \"import pylwdrone; help\\(pylwdrone.LWDrone.start_video_stream\\)\")",
+      "Bash(python3 -c \"import pylwdrone; print\\(dir\\(pylwdrone\\)\\)\")",
+      "Bash(python3 -c \"import rfdetr; print\\(dir\\(rfdetr\\)\\)\")",
+      "Read(//Users/owner/**)",
+      "Bash(python3 -c \"import pylwdrone; vf = pylwdrone.VideoFrame; print\\(dir\\(vf\\)\\)\")",
+      "Bash(python3 -c \"import pylwdrone; help\\(pylwdrone.VideoFrame\\)\")",
+      "Bash(ffmpeg -version)",
+      "Bash(python3 -c \"import sys,json; [print\\(f[''''name''''], f[''''download_url'''']\\) for f in json.load\\(sys.stdin\\)]\")",
+      "Bash(python3 -c \"import supervision; print\\(supervision.__version__\\)\")",
+      "Bash(python3 -c \"import pylwdrone; print\\(pylwdrone.__file__\\)\")",
+      "Bash(find /Users/owner -maxdepth 3 -name *.pcap* -o -name *wireshark*)",
+      "Bash(source .venv/bin/activate)",
+      "Bash(pip install:*)",
+      "Bash(python -c \":*)",
+      "Bash(chmod +x /Users/owner/Downloads/startup_ideas/drone/capture_phone.sh)"
     ]
   }
 }
