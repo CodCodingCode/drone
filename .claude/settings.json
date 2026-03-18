@@ -31,6 +31,9 @@
       "Bash(pip install:*)",
       "Bash(python -c \":*)",
       "Bash(chmod +x /Users/owner/Downloads/startup_ideas/drone/capture_phone.sh)"
+    ],
+    "additionalDirectories": [
+      "/Users/owner/Downloads/startup_ideas/drone"
     ]
   }
 }
